@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;500;600;700&display=swap');
+
+$black: black;
+$green: green;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+$family-sans-serif: "Inconsolata", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $green;
+$link: $black;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;

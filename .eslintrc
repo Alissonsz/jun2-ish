@@ -1,0 +1,14 @@
+{
+  "plugins": ["@typescript-eslint"], // Add
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier" // Add "prettier" last. This will turn off eslint rules conflicting with prettier. This is not what will format our code.
+  ],
+  "rules": {
+    // You can remove the prefer-const rule, as it is already added by @typescript-eslint/recommended
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "error"
+  }
+}

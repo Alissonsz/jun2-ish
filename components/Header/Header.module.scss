@@ -1,0 +1,12 @@
+@import "~/styles/base.scss";
+@import "~bulma/sass/utilities/_all.sass";
+
+.header {
+    background-color: $grey-light;
+
+    .rightSide {
+        @include mobile {
+            display: none;
+        }
+    }
+}
