@@ -1,26 +1,41 @@
 import Layout from '../../components/layout';
 import Counter from '../../components/counter';
-import TodosList from '../../components/TodosList/todosList';
-import { TodosContext } from '../../contexts/todosContext';
+import { RoomContext } from '../../contexts/roomContext';
 import { GetServerSideProps } from 'next';
 import { useContext, useEffect, useState } from 'react';
-import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import VideoPlayer from '../../components/VideoPlayer';
 import classNames from 'classnames';
-import styles from "./Room.module.scss";
+import styles from './Room.module.scss';
+import Chat from '../../components/Chat';
 
-const Index = ({ initialTodos }) => {
-  const { setTodos, addTodo } = useContext(TodosContext);
-  const [todoName, setTodoName] = useState('');
+interface IRoom {
+  name: string;
+  videoUrl: string;
+}
+
+const Room = (roomInfos: IRoom) => {
+  const { name, videoUrl, setRoomName, setRoomVideoUrl } =
+    useContext(RoomContext);
 
   useEffect(() => {
-    setTodos(initialTodos);
+    console.log(roomInfos);
+    setRoomVideoUrl(roomInfos.videoUrl);
+    setRoomName(roomInfos.name);
   }, []);
+
+  useEffect(() => {
+    console.log(videoUrl);
+  }, [videoUrl]);
 
   return (
     <Layout home>
-      <section className={classNames("section columns is-fullwidth")}>
-        <div className="column is-9"><VideoPlayer  /></div>
-        
+      <section className={classNames('section columns is-fullwidth')}>
+        <div className="column is-9">
+          <VideoPlayer />
+        </div>
+        <div className="column is-3">
+          <Chat />
+        </div>
       </section>
     </Layout>
   );
@@ -29,12 +44,10 @@ const Index = ({ initialTodos }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      initialTodos: [
-        { id: 1, name: 'gamer' },
-        { id: 2, name: 'gamer2' },
-      ],
+      name: "Gamer's room",
+      videoUrl: 'https://www.youtube.com/watch?v=lrE5CC1up3s',
     },
   };
 };
 
-export default Index;
+export default Room;

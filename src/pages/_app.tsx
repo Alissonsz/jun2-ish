@@ -1,11 +1,11 @@
 import '../styles/global.sass';
 import { AppProps } from 'next/app';
-import { TodosProvider } from '../contexts/todosContext';
+import { RoomProvider } from '../contexts/roomContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <TodosProvider>
+    <RoomProvider>
       <Component {...pageProps} />
-    </TodosProvider>
+    </RoomProvider>
   );
 }

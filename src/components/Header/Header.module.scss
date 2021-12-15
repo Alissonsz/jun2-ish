@@ -25,7 +25,9 @@
         font-size: 18px;
       }
 
-      svg {
+      a {
+        display: flex;
+        align-items: center;
         position: absolute;
         right: 22px;
       }

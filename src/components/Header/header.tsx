@@ -1,9 +1,14 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './Header.module.scss';
 import SearchIcon from '../../../public/icons/search.svg';
+import { RoomContext } from '../../contexts/roomContext';
 
 const Header = () => {
+  const { setRoomVideoUrl } = useContext(RoomContext);
+
+  const [videoUrlInput, setVideoUrlInput] = useState<string>();
+
   return (
     <div
       className={classNames('px-6 pt-2 columns is-fullwidth', styles.header)}
@@ -18,8 +23,16 @@ const Header = () => {
         )}
       >
         <div className={classNames(styles['input-container'], 'mr-6')}>
-          <input type="text" className="input" />
-          <SearchIcon />
+          <input
+            type="text"
+            className="input"
+            placeholder="Video url"
+            value={videoUrlInput}
+            onChange={(e) => setVideoUrlInput(e.target.value)}
+          />
+          <a onClick={(e) => setRoomVideoUrl(videoUrlInput)}>
+            <SearchIcon />
+          </a>
         </div>
       </div>
     </div>
