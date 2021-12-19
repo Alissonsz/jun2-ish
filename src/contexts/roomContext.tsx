@@ -1,4 +1,6 @@
 import { useState, createContext, useContext } from 'react';
+import { useAppDispatch, useAppSelector } from '../stores';
+import { RoomActions } from '../stores/roomSlice';
 
 export interface IChatMessage {
   author: string;
@@ -18,27 +20,23 @@ interface IRoomContext {
 const RoomContext = createContext({} as IRoomContext);
 
 const RoomProvider = ({ children }) => {
-  const [name, setName] = useState<string>();
-  const [videoUrl, setVideoUrl] = useState<string>();
-  const [messages, setMessages] = useState<IChatMessage[]>([]);
+  const { name, videoUrl, messages } = useAppSelector((state) => state.room);
+  const dispatch = useAppDispatch();
 
   const setRoomName = (name) => {
-    setName(name);
+    dispatch(RoomActions.setName(name));
   };
 
   const setRoomVideoUrl = (url) => {
-    setVideoUrl(url);
+    dispatch(RoomActions.setVideoUrl(url));
   };
 
   const setRoomMessages = (newMessages: IChatMessage[]) => {
-    console.log(newMessages);
-    setMessages(newMessages);
+    dispatch(RoomActions.setMessages(newMessages));
   };
 
   const addMessage = (message: IChatMessage) => {
-    setMessages((prevMessages) => {
-      return [...prevMessages, message];
-    });
+    dispatch(RoomActions.addMessage(message));
   };
 
   return (
