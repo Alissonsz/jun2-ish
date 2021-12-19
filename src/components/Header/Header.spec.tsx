@@ -20,7 +20,7 @@ describe('Header component', () => {
     expect(screen.getByText('Jun2-ish')).toBeInTheDocument();
   });
 
-  it('Updates roomUrl on input submit', () => {
+  it('should be able to update roomUrl on input submit', () => {
     const useRoomMocked = mocked(useRoom);
     const setRoomVideoUrl = jest.fn();
 

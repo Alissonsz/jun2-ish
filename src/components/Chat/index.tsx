@@ -1,15 +1,11 @@
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './Chat.module.scss';
-import { RoomContext } from '../../contexts/roomContext';
+import { useRoom } from '../../contexts/roomContext';
 
 const Chat = () => {
-  const { messages, addMessage } = useContext(RoomContext);
+  const { messages, addMessage } = useRoom();
   const [newMsg, setNewMsg] = useState('');
-
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
 
   const handleNewMsg = (e) => {
     setNewMsg(e.target.value);
