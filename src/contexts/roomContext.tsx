@@ -1,6 +1,6 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 
-interface IChatMessage {
+export interface IChatMessage {
   author: string;
   content: string;
 }
@@ -20,7 +20,7 @@ const RoomContext = createContext({} as IRoomContext);
 const RoomProvider = ({ children }) => {
   const [name, setName] = useState<string>();
   const [videoUrl, setVideoUrl] = useState<string>();
-  const [messages, setMessages] = useState<IChatMessage[]>();
+  const [messages, setMessages] = useState<IChatMessage[]>([]);
 
   const setRoomName = (name) => {
     setName(name);
@@ -30,13 +30,14 @@ const RoomProvider = ({ children }) => {
     setVideoUrl(url);
   };
 
-  const setRoomMessages = (messages: IChatMessage[]) => {
-    setMessages([...messages]);
+  const setRoomMessages = (newMessages: IChatMessage[]) => {
+    console.log(newMessages);
+    setMessages(newMessages);
   };
 
   const addMessage = (message: IChatMessage) => {
     setMessages((prevMessages) => {
-      return [message, ...prevMessages];
+      return [...prevMessages, message];
     });
   };
 
@@ -56,5 +57,7 @@ const RoomProvider = ({ children }) => {
     </RoomContext.Provider>
   );
 };
+
+export const useRoom = () => useContext(RoomContext);
 
 export { RoomContext, RoomProvider };

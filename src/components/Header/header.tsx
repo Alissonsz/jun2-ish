@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import SearchIcon from '../../../public/icons/search.svg';
-import { RoomContext } from '../../contexts/roomContext';
+import { useRoom } from '../../contexts/roomContext';
 
 const Header = () => {
-  const { setRoomVideoUrl } = useContext(RoomContext);
+  const { setRoomVideoUrl } = useRoom();
 
-  const [videoUrlInput, setVideoUrlInput] = useState<string>();
+  const [videoUrlInput, setVideoUrlInput] = useState<string>('');
 
   return (
     <div
@@ -30,7 +30,10 @@ const Header = () => {
             value={videoUrlInput}
             onChange={(e) => setVideoUrlInput(e.target.value)}
           />
-          <a onClick={(e) => setRoomVideoUrl(videoUrlInput)}>
+          <a
+            data-testid="setRoomUrl"
+            onClick={(e) => setRoomVideoUrl(videoUrlInput)}
+          >
             <SearchIcon />
           </a>
         </div>
