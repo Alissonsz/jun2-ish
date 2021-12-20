@@ -15,19 +15,14 @@ interface IRoom {
 }
 
 const Room = (roomInfos: IRoom) => {
-  const { name, videoUrl, setRoomName, setRoomVideoUrl, setRoomMessages } =
+  const { setRoomName, setRoomVideoUrl, setRoomMessages } =
     useContext(RoomContext);
 
   useEffect(() => {
-    console.log(roomInfos);
     setRoomVideoUrl(roomInfos.videoUrl);
     setRoomName(roomInfos.name);
     setRoomMessages(roomInfos.messages);
   }, []);
-
-  useEffect(() => {
-    console.log(videoUrl);
-  }, [videoUrl]);
 
   return (
     <Layout home>
