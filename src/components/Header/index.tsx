@@ -3,26 +3,36 @@ import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import SearchIcon from '../../../public/icons/search.svg';
 import { useRoom } from '../../contexts/roomContext';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 const Header = () => {
   const { setRoomVideoUrl } = useRoom();
+  const { width } = useWindowSize();
 
   const [videoUrlInput, setVideoUrlInput] = useState<string>('');
 
   return (
     <div
-      className={classNames('px-6 pt-2 columns is-fullwidth', styles.header)}
+      className={classNames(
+        'px-6 pt-2 columns is-mobile is-fullwidth',
+        styles.header
+      )}
     >
-      <div className="column is-2 has-text-black has-text-weight-bold is-size-4">
-        Jun2-ish
+      <div className="column is-2-desktop is-2-mobile has-text-black has-text-weight-bold is-size-4">
+        {width < 768 ? 'J2I' : 'Jun2-ish'}
       </div>
       <div
         className={classNames(
-          'column is-8 is-flex is-justify-content-center',
+          'column is-8-desktop is-10-mobile is-flex is-justify-content-center is-paddingless',
           styles['search-input-container']
         )}
       >
-        <div className={classNames(styles['input-container'], 'mr-6')}>
+        <div
+          className={classNames(
+            styles['input-container'],
+            'mr-6-desktop mr-0-mobile'
+          )}
+        >
           <input
             type="text"
             className="input"
@@ -32,7 +42,10 @@ const Header = () => {
           />
           <a
             data-testid="setRoomUrl"
-            onClick={(e) => setRoomVideoUrl(videoUrlInput)}
+            onClick={(e) => {
+              setRoomVideoUrl(videoUrlInput);
+              setVideoUrlInput('');
+            }}
           >
             <SearchIcon />
           </a>

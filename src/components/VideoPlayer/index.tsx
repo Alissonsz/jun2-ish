@@ -8,13 +8,13 @@ const VideoPlayer = () => {
   const { videoUrl } = useContext(RoomContext);
 
   return (
-    <div className={styles['player-style']}>
+    <div className={styles['player-wrapper']}>
       <ReactPlayer
+        className={styles['react-player']}
         url={videoUrl}
         controls={true}
-        style={{ aspectRatio: '16/9' }}
-        width={'auto'}
-        height={'720px'}
+        width={'100%'}
+        height={'100%'}
       />
     </div>
   );

@@ -2,5 +2,9 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .columns-container {
-  max-height: 100vh;
+  @include mobile {
+    padding-top: 1rem;
+    padding-right: 0;
+    padding-left: 0.75rem;
+  }
 }

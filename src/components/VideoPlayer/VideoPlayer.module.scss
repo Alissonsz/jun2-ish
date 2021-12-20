@@ -1,9 +1,13 @@
 @import '~/src/styles/base.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.player-style {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

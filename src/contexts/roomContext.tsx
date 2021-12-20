@@ -1,6 +1,6 @@
-import { useState, createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useAppDispatch, useAppSelector } from '../stores';
-import { RoomActions, RoomState } from '../stores/roomSlice';
+import { RoomActions } from '../stores/roomSlice';
 
 export interface IChatMessage {
   author: string;
