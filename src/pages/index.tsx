@@ -6,10 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 const Index = ({ initialTodos }) => {
   const [todoName, setTodoName] = useState('');
 
-  useEffect(() => {
-    setTodos(initialTodos);
-  }, []);
-
   return (
     <Layout home>
       <section className="section">

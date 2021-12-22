@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useAppDispatch, useAppSelector } from '../stores';
 import { RoomActions } from '../stores/roomSlice';
+import { sendNewMessage } from '../services/ws';
 
 export interface IChatMessage {
   author: string;
@@ -36,6 +37,7 @@ const RoomProvider = ({ children }) => {
   };
 
   const addMessage = (message: IChatMessage) => {
+    sendNewMessage(message);
     dispatch(RoomActions.addMessage(message));
   };
 

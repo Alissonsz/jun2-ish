@@ -19,7 +19,6 @@ describe('Chat Component', () => {
           content: 'There hi',
         },
       ],
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     render(<Chat />);
@@ -46,7 +45,6 @@ describe('Chat Component', () => {
         },
       ],
       addMessage: addMessageMocked,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     render(<Chat />);

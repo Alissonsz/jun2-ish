@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { mocked } from 'ts-jest/utils';
 import { useRoom } from '../../contexts/roomContext';
-import Header from './header';
+import Header from '.';
 
 jest.mock('../../contexts/roomContext.tsx');
 
@@ -12,7 +12,6 @@ describe('Header component', () => {
 
     useRoomMocked.mockReturnValueOnce({
       setRoomVideoUrl: setRoomVideoUrl,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     render(<Header />);
@@ -26,7 +25,6 @@ describe('Header component', () => {
 
     useRoomMocked.mockReturnValue({
       setRoomVideoUrl: setRoomVideoUrl,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     render(<Header />);

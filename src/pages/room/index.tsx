@@ -1,8 +1,8 @@
 import Layout from '../../components/layout';
-import Counter from '../../components/counter';
-import { RoomContext, IChatMessage } from '../../contexts/roomContext';
+
+import { RoomContext, IChatMessage, useRoom } from '../../contexts/roomContext';
 import { GetServerSideProps } from 'next';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import classNames from 'classnames';
 import styles from './Room.module.scss';
@@ -15,8 +15,7 @@ interface IRoom {
 }
 
 const Room = (roomInfos: IRoom) => {
-  const { setRoomName, setRoomVideoUrl, setRoomMessages } =
-    useContext(RoomContext);
+  const { setRoomName, setRoomVideoUrl, setRoomMessages } = useRoom();
 
   useEffect(() => {
     setRoomVideoUrl(roomInfos.videoUrl);
