@@ -2,26 +2,51 @@ import Layout from '../../components/layout';
 
 import { RoomContext, IChatMessage, useRoom } from '../../contexts/roomContext';
 import { GetServerSideProps } from 'next';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import classNames from 'classnames';
 import styles from './Room.module.scss';
 import Chat from '../../components/Chat';
+import api from '../../services/api';
 
 interface IRoom {
+  id: number;
   name: string;
   videoUrl: string;
   messages: IChatMessage[];
 }
 
 const Room = (roomInfos: IRoom) => {
-  const { setRoomName, setRoomVideoUrl, setRoomMessages } = useRoom();
+  const {
+    setRoomId,
+    setRoomName,
+    setRoomUserNickname,
+    setRoomVideoUrl,
+    setRoomMessages,
+  } = useRoom();
+
+  const [nameInput, setNameInput] = useState('');
+  const [modalActive, setModalActive] = useState(true);
 
   useEffect(() => {
+    setRoomId(roomInfos.id);
     setRoomVideoUrl(roomInfos.videoUrl);
     setRoomName(roomInfos.name);
     setRoomMessages(roomInfos.messages);
   }, []);
+
+  const handleNameChange = (e) => {
+    setNameInput(e.target.value);
+  };
+
+  const handleSetUserNicknameButton = (e) => {
+    const nickname = nameInput;
+
+    if (!!nickname) {
+      setRoomUserNickname(nickname);
+      setModalActive(false);
+    }
+  };
 
   return (
     <Layout home>
@@ -38,26 +63,47 @@ const Room = (roomInfos: IRoom) => {
           <Chat />
         </div>
       </section>
+      <div
+        className={classNames(
+          'modal',
+          styles['nickname-modal'],
+          modalActive ? 'is-active' : ''
+        )}
+      >
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <h2 className="title has-text-black has-text-weight-semibold has-text-centered">
+            Please, enter a nickname
+          </h2>
+          <div className="control">
+            <label className="label">Nickname</label>
+            <input
+              type="text"
+              className="input"
+              value={nameInput}
+              onChange={handleNameChange}
+            />
+          </div>
+          <button
+            className="button is-primary"
+            onClick={handleSetUserNicknameButton}
+          >
+            Confirm
+          </button>
+        </div>
+        <button className="modal-close is-large" aria-label="close"></button>
+      </div>
     </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const rooms = await api.get('/rooms').then((data) => data.data.rooms);
+  console.log(rooms);
+
   return {
     props: {
-      name: "Gamer's room",
-      videoUrl: 'https://www.youtube.com/watch?v=lrE5CC1up3s',
-      messages: [
-        {
-          author: 'Alisson',
-          content: 'Hello everyone',
-        },
-        {
-          author: 'Iguzinho',
-          content: "It's cabulozo big cruzeiro hahahaah games",
-        },
-        { author: 'GLucaXD', content: "Let's go Bahia" },
-      ],
+      ...rooms[0],
     },
   };
 };

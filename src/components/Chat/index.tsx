@@ -15,7 +15,7 @@ const Chat = () => {
 
   const handleMsgSubmit = (e) => {
     if (e.key === 'Enter' && newMsg.length) {
-      addMessage({ author: 'John Doe', content: newMsg });
+      addMessage(newMsg);
       setNewMsg('');
     }
   };

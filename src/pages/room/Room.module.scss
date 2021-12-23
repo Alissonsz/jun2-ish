@@ -8,3 +8,33 @@
     padding-left: 0.75rem;
   }
 }
+
+.nickname-modal {
+  :global {
+    .modal-content {
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: $app-grey;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;  
+
+      .control {
+        width: 100%;
+
+        label {
+          margin-bottom: 0;
+          color: $black;
+          font-weight: 'semibold';
+          padding-left: 0.5rem;
+        }
+      }
+
+      .button {
+        margin-top: 1rem;
+        width: 40%;
+      }
+    }
+  }
+}
