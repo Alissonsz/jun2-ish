@@ -49,7 +49,7 @@ const Room = (roomInfos: IRoom) => {
   };
 
   return (
-    <Layout home>
+    <Layout>
       <section
         className={classNames(
           'section columns is-fullwidth',
@@ -91,7 +91,6 @@ const Room = (roomInfos: IRoom) => {
             Confirm
           </button>
         </div>
-        <button className="modal-close is-large" aria-label="close"></button>
       </div>
     </Layout>
   );

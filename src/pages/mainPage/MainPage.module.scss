@@ -1,0 +1,53 @@
+@import '~/src/styles/base.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  :global {
+    .container {
+      margin: 0;
+      width: 100%;
+      border: 2px solid $app-grey;
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .title {
+        @include mobile {
+          font-size: 1.5rem;
+        }
+      }
+      
+      .control {
+        width: 80%;
+
+        .label {
+          padding-left: 0.75rem;
+          margin-bottom: 0;
+        }
+
+        @include mobile {
+          width: 100%;
+        }
+      }
+
+      .button {
+        width: 50%;
+        margin: 2rem;
+
+        @include mobile {
+          margin: 1rem;
+          margin-top: 1.5rem;
+        }
+      }
+    }
+  }
+}

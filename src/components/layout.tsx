@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from './Header';
 
-export const siteTitle = 'Next.js Sample Website';
+export const siteTitle = 'Jun2-ish';
 
 export default function Layout({
   children,

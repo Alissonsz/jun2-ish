@@ -3,8 +3,8 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/room',
-        permanent: true,
+        destination: '/mainPage',
+        permanent: false,
       },
     ];
   },
