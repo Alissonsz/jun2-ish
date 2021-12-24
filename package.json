@@ -39,6 +39,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.4",
     "jest-dom": "^4.0.0",
+    "jest-mock": "^27.4.2",
     "jest-svg-transformer": "^1.0.0",
     "prettier": "^2.3.2",
     "svg-jest": "^1.0.1",

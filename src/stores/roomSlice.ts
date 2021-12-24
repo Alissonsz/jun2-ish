@@ -6,7 +6,7 @@ export interface IChatMessage {
 }
 
 export interface RoomState {
-  id: number;
+  id: string;
   name: string;
   videoUrl: string;
   userNickname: string;
@@ -25,7 +25,7 @@ export const roomSlice = createSlice({
   name: 'room',
   initialState,
   reducers: {
-    setId: (state, action: PayloadAction<number>) => {
+    setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
     },
     setName: (state, action: PayloadAction<string>) => {
@@ -42,6 +42,9 @@ export const roomSlice = createSlice({
     },
     addMessage: (state, action: PayloadAction<IChatMessage>) => {
       state.messages.push(action.payload);
+    },
+    clearState: () => {
+      return initialState;
     },
   },
 });

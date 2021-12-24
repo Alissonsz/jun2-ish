@@ -6,7 +6,7 @@ import { useRoom } from '../../contexts/roomContext';
 import { useWindowSize } from '../../hooks/useWindowSize';
 
 const Header = () => {
-  const { setRoomVideoUrl } = useRoom();
+  const { changeVideoUrl } = useRoom();
   const { width } = useWindowSize();
 
   const [videoUrlInput, setVideoUrlInput] = useState<string>('');
@@ -43,7 +43,7 @@ const Header = () => {
           <a
             data-testid="setRoomUrl"
             onClick={(e) => {
-              setRoomVideoUrl(videoUrlInput);
+              changeVideoUrl(videoUrlInput);
               setVideoUrlInput('');
             }}
           >

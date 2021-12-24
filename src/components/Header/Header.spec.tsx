@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import { useRoom } from '../../contexts/roomContext';
 import Header from '.';
 
@@ -8,10 +8,10 @@ jest.mock('../../contexts/roomContext.tsx');
 describe('Header component', () => {
   it('renders correctly', () => {
     const useRoomMocked = mocked(useRoom);
-    const setRoomVideoUrl = jest.fn();
+    const changeVideoUrl = jest.fn();
 
-    useRoomMocked.mockReturnValueOnce({
-      setRoomVideoUrl: setRoomVideoUrl,
+    useRoomMocked.mockReturnValue({
+      changeVideoUrl: changeVideoUrl,
     } as any);
 
     render(<Header />);
@@ -21,10 +21,10 @@ describe('Header component', () => {
 
   it('should be able to update roomUrl on input submit', () => {
     const useRoomMocked = mocked(useRoom);
-    const setRoomVideoUrl = jest.fn();
+    const changeVideoUrl = jest.fn();
 
     useRoomMocked.mockReturnValue({
-      setRoomVideoUrl: setRoomVideoUrl,
+      changeVideoUrl: changeVideoUrl,
     } as any);
 
     render(<Header />);
@@ -35,6 +35,6 @@ describe('Header component', () => {
     fireEvent.change(input, { target: { value: 'www.teste.com' } });
     fireEvent.click(button);
 
-    expect(setRoomVideoUrl).toHaveBeenCalledWith('www.teste.com');
+    expect(changeVideoUrl).toHaveBeenCalledWith('www.teste.com');
   });
 });

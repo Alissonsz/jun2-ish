@@ -1,6 +1,6 @@
 import Chat from './';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import { useRoom } from '../../contexts/roomContext';
 
 jest.mock('../../contexts/roomContext.tsx');
@@ -57,8 +57,6 @@ describe('Chat Component', () => {
       charCode: 13,
     });
 
-    expect(addMessageMocked).toHaveBeenCalledWith(
-      expect.objectContaining({ content: 'Hello everyone' })
-    );
+    expect(addMessageMocked).toHaveBeenCalledWith('Hello everyone');
   });
 });

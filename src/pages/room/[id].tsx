@@ -1,8 +1,8 @@
 import Layout from '../../components/layout';
 
-import { RoomContext, IChatMessage, useRoom } from '../../contexts/roomContext';
+import { IChatMessage, useRoom } from '../../contexts/roomContext';
 import { GetServerSideProps } from 'next';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import classNames from 'classnames';
 import styles from './Room.module.scss';
@@ -10,7 +10,7 @@ import Chat from '../../components/Chat';
 import api from '../../services/api';
 
 interface IRoom {
-  id: number;
+  id: string;
   name: string;
   videoUrl: string;
   messages: IChatMessage[];
@@ -98,12 +98,12 @@ const Room = (roomInfos: IRoom) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const rooms = await api.get('/rooms').then((data) => data.data.rooms);
-  console.log(rooms);
+  const { id } = context.query;
+  const room = await api.get(`/room/${id}`).then((data) => data.data.room);
 
   return {
     props: {
-      ...rooms[0],
+      ...room,
     },
   };
 };

@@ -3,11 +3,7 @@ import { IChatMessage } from '../stores/roomSlice';
 
 const socket = io('localhost:8080');
 
-socket.on('connect', () => {
-  console.log('connected');
-});
-
-export const sendNewMessage = (roomId: number, message: IChatMessage) => {
+export const sendNewMessage = (roomId: string, message: IChatMessage) => {
   const payload = {
     roomId,
     message,
@@ -16,13 +12,22 @@ export const sendNewMessage = (roomId: number, message: IChatMessage) => {
   socket.emit('newMessage', payload);
 };
 
-export const sendEntryRoom = (roomId: number, nickname: string) => {
+export const sendEntryRoom = (roomId: string, nickname: string) => {
   const payload = {
     roomId,
     nickname,
   };
 
   socket.emit('joinRoom', payload);
+};
+
+export const sendVideoChange = (roomId: string, videoUrl: string) => {
+  const payload = {
+    roomId,
+    videoUrl,
+  };
+
+  socket.emit('changeVideo', payload);
 };
 
 export default socket;

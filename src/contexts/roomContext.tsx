@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../stores';
 import { RoomActions } from '../stores/roomSlice';
-import socket, { sendEntryRoom, sendNewMessage } from '../services/ws';
+import socket, {
+  sendEntryRoom,
+  sendNewMessage,
+  sendVideoChange,
+} from '../services/ws';
 
 export interface IChatMessage {
   author: string;
@@ -13,12 +17,13 @@ interface IRoomContext {
   userNickname: string;
   videoUrl: string;
   messages: IChatMessage[];
-  setRoomId: (id: number) => void;
+  setRoomId: (id: string) => void;
   setRoomName: (name: string) => void;
   setRoomUserNickname: (nickname: string) => void;
   setRoomVideoUrl: (url: string) => void;
   setRoomMessages: (messages: IChatMessage[]) => void;
   addMessage: (message: string) => void;
+  changeVideoUrl: (url: string) => void;
 }
 
 const RoomContext = createContext({} as IRoomContext);
@@ -30,7 +35,7 @@ const RoomProvider = ({ children }) => {
 
   const dispatch = useAppDispatch();
 
-  const setRoomId = (id: number) => {
+  const setRoomId = (id: string) => {
     dispatch(RoomActions.setId(id));
   };
 
@@ -55,10 +60,23 @@ const RoomProvider = ({ children }) => {
     sendNewMessage(id, { author: userNickname, content: message });
   };
 
+  const changeVideoUrl = (url: string) => {
+    sendVideoChange(id, url);
+  };
+
   useEffect(() => {
+    socket.on('connect', () => {
+      console.log('connected');
+    });
+
     socket.on('newMessage', (data: IChatMessage) => {
       console.log('new message', data);
       dispatch(RoomActions.addMessage(data));
+    });
+
+    socket.on('videoChanged', (data: string) => {
+      console.log('video changed', data);
+      dispatch(RoomActions.setVideoUrl(data));
     });
   }, []);
 
@@ -75,6 +93,7 @@ const RoomProvider = ({ children }) => {
         setRoomVideoUrl,
         setRoomMessages,
         addMessage,
+        changeVideoUrl,
       }}
     >
       {children}
