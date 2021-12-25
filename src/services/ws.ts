@@ -30,4 +30,20 @@ export const sendVideoChange = (roomId: string, videoUrl: string) => {
   socket.emit('changeVideo', payload);
 };
 
+export const sendVideoPlayingChange = (roomId: string, playing: boolean) => {
+  const payload = { roomId, playing };
+
+  socket.emit('videoPlayingChanged', payload);
+};
+
+export const sendVideoSeek = (roomId: string, seekTo: number) => {
+  const payload = { roomId, seekTo };
+  socket.emit('videoSeeked', payload);
+};
+
+export const sendPlayingProgress = (roomId: string, progress) => {
+  const payload = { roomId, progress };
+  socket.emit('playingProgress', payload);
+};
+
 export default socket;

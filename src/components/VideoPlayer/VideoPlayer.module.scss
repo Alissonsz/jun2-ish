@@ -4,10 +4,41 @@
 .player-wrapper {
   position: relative;
   padding-top: 56.25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+
+  :global {
+    .player-controls {
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+
+      .play-pause {
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 26px;
+          height: 26px;
+          z-index: 1;
+        }
+      }
+    }
+  }
 }
 
 .react-player {
   position: absolute;
   top: 0;
   left: 0;
+  padding-bottom: 40px;
 }
+
+

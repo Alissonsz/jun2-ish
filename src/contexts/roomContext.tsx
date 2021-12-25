@@ -13,6 +13,7 @@ export interface IChatMessage {
 }
 
 interface IRoomContext {
+  id: string;
   name: string;
   userNickname: string;
   videoUrl: string;
@@ -83,6 +84,7 @@ const RoomProvider = ({ children }) => {
   return (
     <RoomContext.Provider
       value={{
+        id,
         name,
         userNickname,
         videoUrl,

@@ -8,12 +8,15 @@ import classNames from 'classnames';
 import styles from './Room.module.scss';
 import Chat from '../../components/Chat';
 import api from '../../services/api';
+import { useVideo } from '../../contexts/videoContext';
 
 interface IRoom {
   id: string;
   name: string;
   videoUrl: string;
   messages: IChatMessage[];
+  progress: number;
+  playing: boolean;
 }
 
 const Room = (roomInfos: IRoom) => {
@@ -29,6 +32,7 @@ const Room = (roomInfos: IRoom) => {
   const [modalActive, setModalActive] = useState(true);
 
   useEffect(() => {
+    // ROOM INITIAL STATE
     setRoomId(roomInfos.id);
     setRoomVideoUrl(roomInfos.videoUrl);
     setRoomName(roomInfos.name);
@@ -98,13 +102,24 @@ const Room = (roomInfos: IRoom) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
-  const room = await api.get(`/room/${id}`).then((data) => data.data.room);
 
-  return {
-    props: {
-      ...room,
-    },
-  };
+  try {
+    const response = await api.get(`/room/${id}`);
+    const room = response.data.room;
+    console.log(room);
+    return {
+      props: {
+        ...room,
+      },
+    };
+  } catch {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
 };
 
 export default Room;
