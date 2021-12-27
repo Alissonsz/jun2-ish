@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import styles from './VideoPlayer.module.scss';
 import { useRoom } from '../../contexts/roomContext';
 import { MdPlayArrow, MdPause, MdFullscreen, MdVolumeUp } from 'react-icons/md';
 import { useVideo } from '../../contexts/videoContext';
 import classNames from 'classnames';
+import Player from '../Player';
 
 // It's needed to ensure that the package is being imported only at client-side
 // the screenfull lib looks for the document var on import, what breaks with next ssr
@@ -30,6 +31,8 @@ const VideoPlayer = () => {
   const [volume, setVolume] = useState(1);
   const [showVolumeInput, setShowVolumeInput] = useState(false);
 
+  const onRef = (el: ReactPlayer) => (playerRef.current = el);
+
   const onSliderChange = (e) => {
     seekVideo(e.target.value / 100);
   };
@@ -52,7 +55,7 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    playerRef.current.seekTo(lastSeek, 'fraction');
+    playerRef?.current?.seekTo(lastSeek, 'fraction');
   }, [lastSeek]);
 
   useEffect(() => {
@@ -63,11 +66,11 @@ const VideoPlayer = () => {
     <div
       className={styles['player-wrapper']}
       ref={ref}
-      data-testid="VideoPlayer"
+      data-testid="videoPlayer"
     >
       <div className="cover" onClick={handleCoverClick}></div>
-      <ReactPlayer
-        ref={playerRef}
+      <Player
+        onRef={onRef}
         className={styles['react-player']}
         url={videoUrl}
         width={'100%'}
@@ -87,9 +90,19 @@ const VideoPlayer = () => {
       <div className="player-controls">
         <div className="play-pause button-container">
           {isPlaying ? (
-            <MdPause width={40} height={40} onClick={togglePlaying} />
+            <MdPause
+              width={40}
+              height={40}
+              onClick={togglePlaying}
+              data-testid="pauseButton"
+            />
           ) : (
-            <MdPlayArrow width={40} height={40} onClick={togglePlaying} />
+            <MdPlayArrow
+              width={40}
+              height={40}
+              onClick={togglePlaying}
+              data-testid="playButton"
+            />
           )}
         </div>
         <input
@@ -100,6 +113,7 @@ const VideoPlayer = () => {
           value={playedFraction}
           type="range"
           onInput={onSliderChange}
+          data-testid="videoDurationSlider"
         />
         <div className="button-container volume">
           <input
@@ -115,15 +129,22 @@ const VideoPlayer = () => {
             type="range"
             value={volume * 100}
             onInput={handleVolumeChange}
+            data-testid="volumeSlider"
           />
           <MdVolumeUp
             width={40}
             height={40}
             onClick={() => setShowVolumeInput(!showVolumeInput)}
+            data-testid="toggleVolumeVisible"
           />
         </div>
         <div className="button-container">
-          <MdFullscreen width={40} height={40} onClick={handleFullScreen} />
+          <MdFullscreen
+            width={40}
+            height={40}
+            onClick={handleFullScreen}
+            data-testid="toggleFullscreenButton"
+          />
         </div>
       </div>
     </div>
