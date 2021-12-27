@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useStore } from 'react-redux';
+
 import socket, {
   sendPlayingProgress,
   sendVideoPlayingChange,

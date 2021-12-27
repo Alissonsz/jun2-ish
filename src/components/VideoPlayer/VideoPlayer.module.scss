@@ -17,12 +17,13 @@
       align-items: center;
       z-index: 5;
 
-      .play-pause {
+      .button-container {
         height: 40px;
         width: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
 
         svg {
           width: 26px;
@@ -30,6 +31,13 @@
           z-index: 1;
         }
       }
+
+      .slider {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      
     }
   }
 }

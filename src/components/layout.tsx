@@ -25,7 +25,7 @@ export default function Layout({
 
       <footer className="footer">
         <div className="content has-text-centered">
-          <span>I'm the footer</span>
+          <span>I&apos;m the footer</span>
         </div>
       </footer>
     </>

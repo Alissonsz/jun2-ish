@@ -1,13 +1,18 @@
-import classNames from 'classnames';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './VideoPlayer.module.scss';
-import { RoomContext, useRoom } from '../../contexts/roomContext';
-import { MdPlayArrow, MdPause } from 'react-icons/md';
+import { useRoom } from '../../contexts/roomContext';
+import { MdPlayArrow, MdPause, MdFullscreen } from 'react-icons/md';
 import { useVideo } from '../../contexts/videoContext';
+
+let screenfull = null;
+import('screenfull').then((screenfullModule) => {
+  screenfull = screenfullModule.default;
+});
 
 const VideoPlayer = () => {
   const playerRef = useRef<ReactPlayer>(null);
+  const ref = useRef(null);
   const { videoUrl } = useRoom();
   const {
     lastSeek,
@@ -22,12 +27,24 @@ const VideoPlayer = () => {
     seekVideo(e.target.value / 100);
   };
 
+  const handleFullScreen = () => {
+    if (typeof window !== 'undefined') {
+      if (screenfull.isEnabled) {
+        screenfull.toggle(ref.current);
+      }
+    }
+  };
+
   useEffect(() => {
     playerRef.current.seekTo(lastSeek, 'fraction');
   }, [lastSeek]);
 
+  useEffect(() => {
+    setPlayedFraction(0);
+  }, [videoUrl]);
+
   return (
-    <div className={styles['player-wrapper']}>
+    <div className={styles['player-wrapper']} ref={ref}>
       <ReactPlayer
         ref={playerRef}
         className={styles['react-player']}
@@ -47,7 +64,7 @@ const VideoPlayer = () => {
         }}
       />
       <div className="player-controls">
-        <div className="play-pause">
+        <div className="play-pause button-container">
           {isPlaying ? (
             <MdPause width={40} height={40} onClick={togglePlaying} />
           ) : (
@@ -63,6 +80,9 @@ const VideoPlayer = () => {
           type="range"
           onInput={onSliderChange}
         />
+        <div className="button-container">
+          <MdFullscreen width={40} height={40} onClick={handleFullScreen} />
+        </div>
       </div>
     </div>
   );
