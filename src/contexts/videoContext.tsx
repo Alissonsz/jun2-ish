@@ -35,11 +35,6 @@ const VideoProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('Playing: ', isPlaying);
-  }, [isPlaying]);
-
-  useEffect(() => {
-    console.log('Played: ', playedFraction);
     sendPlayingProgress(id, playedFraction);
   }, [playedFraction]);
 

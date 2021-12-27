@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import styles from './VideoPlayer.module.scss';
 import { useRoom } from '../../contexts/roomContext';
-import { MdPlayArrow, MdPause, MdFullscreen } from 'react-icons/md';
+import { MdPlayArrow, MdPause, MdFullscreen, MdVolumeUp } from 'react-icons/md';
 import { useVideo } from '../../contexts/videoContext';
+import classNames from 'classnames';
 
+// It's needed to ensure that the package is being imported only at client-side
+// the screenfull lib looks for the document var on import, what breaks with next ssr
 let screenfull = null;
 import('screenfull').then((screenfullModule) => {
   screenfull = screenfullModule.default;
@@ -20,11 +23,24 @@ const VideoPlayer = () => {
     playedFraction,
     togglePlaying,
     setPlayedFraction,
+    setLastSeek,
     seekVideo,
   } = useVideo();
 
+  const [volume, setVolume] = useState(1);
+  const [showVolumeInput, setShowVolumeInput] = useState(false);
+
   const onSliderChange = (e) => {
     seekVideo(e.target.value / 100);
+  };
+
+  const handleCoverClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleVolumeChange = (e) => {
+    setVolume(e.target.value / 100);
   };
 
   const handleFullScreen = () => {
@@ -40,26 +56,31 @@ const VideoPlayer = () => {
   }, [lastSeek]);
 
   useEffect(() => {
-    setPlayedFraction(0);
+    setLastSeek(0);
   }, [videoUrl]);
 
   return (
-    <div className={styles['player-wrapper']} ref={ref}>
+    <div
+      className={styles['player-wrapper']}
+      ref={ref}
+      data-testid="VideoPlayer"
+    >
+      <div className="cover" onClick={handleCoverClick}></div>
       <ReactPlayer
         ref={playerRef}
         className={styles['react-player']}
         url={videoUrl}
         width={'100%'}
         height={'100%'}
+        volume={volume}
         playing={isPlaying}
         progressInterval={100}
+        controls={false}
         onEnded={() => togglePlaying()}
         onProgress={(state) => {
-          console.log(state);
           setPlayedFraction(state.played * 100);
         }}
         onDuration={(duration) => {
-          console.log(duration);
           playerRef.current.seekTo(lastSeek, 'fraction');
         }}
       />
@@ -80,6 +101,27 @@ const VideoPlayer = () => {
           type="range"
           onInput={onSliderChange}
         />
+        <div className="button-container volume">
+          <input
+            className={classNames(
+              'slider is-fullwidth is-success is-circle',
+              showVolumeInput ? '' : 'is-hidden'
+            )}
+            //@ts-ignore
+            orient="vertical"
+            min="0"
+            max="100"
+            step="any"
+            type="range"
+            value={volume * 100}
+            onInput={handleVolumeChange}
+          />
+          <MdVolumeUp
+            width={40}
+            height={40}
+            onClick={() => setShowVolumeInput(!showVolumeInput)}
+          />
+        </div>
         <div className="button-container">
           <MdFullscreen width={40} height={40} onClick={handleFullScreen} />
         </div>

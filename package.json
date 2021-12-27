@@ -25,6 +25,7 @@
     "socket.io-client": "^4.4.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.5",
     "@next/eslint-plugin-next": "^11.1.0",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.16.1",

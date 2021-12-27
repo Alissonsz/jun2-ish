@@ -10,6 +10,15 @@
   height: 100%;
 
   :global {
+    .cover {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      padding-bottom: 48px;
+      bottom: 0;
+      z-index: 5;
+    }
+
     .player-controls {
       height: 40px;
       display: flex;
@@ -30,17 +39,52 @@
           height: 26px;
           z-index: 1;
         }
+
+        &.volume {
+          position: relative;
+
+          input[type=range][orient=vertical] {
+            position: absolute;
+            bottom: 20px;
+            z-index: 5;
+
+            &::-webkit-slider-runnable-track {
+              background: $app-grey !important;
+            }
+
+            &::-webkit-slider-thumb {
+              cursor: pointer;
+              background: $white !important;
+              position: relative;
+              left: 4px;
+            }
+      
+            &::-moz-range-thumb {
+              background: $white !important;
+              cursor: pointer;
+              position: relative;
+              left: 4px;
+            }
+      
+            &::-ms-thumb {
+              background: $white !important;
+              cursor: pointer;
+              position: absolute;
+              left: 4px;
+            }
+          }  
+        }
       }
 
       .slider {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
       }
-
-      
     }
   }
 }
+
+
 
 .react-player {
   position: absolute;
