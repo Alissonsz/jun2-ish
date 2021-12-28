@@ -60,10 +60,10 @@ const Room = (roomInfos: IRoom) => {
           styles['columns-container']
         )}
       >
-        <div className="column is-9">
+        <div className="column is-9 video-column">
           <VideoPlayer />
         </div>
-        <div className="column is-3">
+        <div className="column is-3 chat-column">
           <Chat />
         </div>
       </section>

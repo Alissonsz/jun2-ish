@@ -2,10 +2,27 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .columns-container {
+  padding-top: 1rem;
+  height: 98vh;
+
   @include mobile {
     padding-top: 1rem;
     padding-right: 0;
     padding-left: 0.75rem;
+  }
+
+  :global {
+    .video-column {
+      @include mobile {
+        padding-bottom: 0;
+      }
+    }
+
+    .chat-column {
+      @include mobile {
+        padding-top: 0;
+      }
+    }
   }
 }
 

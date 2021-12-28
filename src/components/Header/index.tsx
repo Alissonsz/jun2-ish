@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './Header.module.scss';
-import SearchIcon from '../../../public/icons/search.svg';
+import { MdPlayArrow } from 'react-icons/md';
 import { useRoom } from '../../contexts/roomContext';
 import { useWindowSize } from '../../hooks/useWindowSize';
 
@@ -47,7 +47,7 @@ const Header = () => {
               setVideoUrlInput('');
             }}
           >
-            <SearchIcon />
+            <MdPlayArrow height={32} width={32} />
           </a>
         </div>
       </div>

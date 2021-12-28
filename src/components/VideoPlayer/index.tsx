@@ -22,6 +22,7 @@ const VideoPlayer = () => {
   } = useVideo();
 
   const [volume, setVolume] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [showVolumeInput, setShowVolumeInput] = useState(false);
 
   const onRef = (el: ReactPlayer) => (playerRef.current = el);
@@ -44,6 +45,7 @@ const VideoPlayer = () => {
     if (typeof window !== 'undefined') {
       if (screenfull.isEnabled) {
         screenfull.toggle(ref.current);
+        setIsFullscreen(!isFullscreen);
       }
     }
   };
@@ -58,7 +60,10 @@ const VideoPlayer = () => {
 
   return (
     <div
-      className={styles['player-wrapper']}
+      className={classNames(
+        styles['player-wrapper'],
+        isFullscreen ? styles['is-fullscreen'] : ''
+      )}
       ref={ref}
       data-testid="videoPlayer"
     >
@@ -109,7 +114,11 @@ const VideoPlayer = () => {
           onInput={onSliderChange}
           data-testid="videoDurationSlider"
         />
-        <div className="button-container volume">
+        <div
+          className="button-container volume"
+          onMouseEnter={() => setShowVolumeInput(true)}
+          onMouseLeave={() => setShowVolumeInput(false)}
+        >
           <input
             className={classNames(
               'slider is-fullwidth is-success is-circle',
@@ -128,7 +137,6 @@ const VideoPlayer = () => {
           <MdVolumeUp
             width={40}
             height={40}
-            onClick={() => setShowVolumeInput(!showVolumeInput)}
             data-testid="toggleVolumeVisible"
           />
         </div>
