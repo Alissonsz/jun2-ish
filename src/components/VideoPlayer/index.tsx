@@ -7,13 +7,6 @@ import { useVideo } from '../../contexts/videoContext';
 import classNames from 'classnames';
 import Player from '../Player';
 
-// It's needed to ensure that the package is being imported only at client-side
-// the screenfull lib looks for the document var on import, what breaks with next ssr
-let screenfull = null;
-import('screenfull').then((screenfullModule) => {
-  screenfull = screenfullModule.default;
-});
-
 const VideoPlayer = () => {
   const playerRef = useRef<ReactPlayer>(null);
   const ref = useRef(null);
@@ -46,7 +39,8 @@ const VideoPlayer = () => {
     setVolume(e.target.value / 100);
   };
 
-  const handleFullScreen = () => {
+  const handleFullScreen = async () => {
+    const screenfull = (await import('screenfull')).default;
     if (typeof window !== 'undefined') {
       if (screenfull.isEnabled) {
         screenfull.toggle(ref.current);

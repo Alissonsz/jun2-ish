@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from '@testing-library/react';
 import { mocked } from 'jest-mock';
 import VideoPlayer from '.';
 import { useVideo } from '../../contexts/videoContext';
@@ -79,7 +85,7 @@ describe('Video Player component', () => {
     expect(volumeSlider).toHaveClass('is-hidden');
   });
 
-  it('should be able to toggle fullscreen mode', () => {
+  it('should be able to toggle fullscreen mode', async () => {
     const useVideoMocked = mocked(useVideo);
     const screenfullMocked = mocked(screenfull);
 
@@ -93,7 +99,11 @@ describe('Video Player component', () => {
     const videoPlayerContainer = screen.getByTestId('videoPlayer');
 
     fireEvent.click(toggleFullscreenButton);
-    expect(screenfullMocked.toggle).toHaveBeenCalledWith(videoPlayerContainer);
+    await waitFor(() => {
+      expect(screenfullMocked.toggle).toHaveBeenCalledWith(
+        videoPlayerContainer
+      );
+    });
   });
 
   it('should call setPlayerFraction on onProgress callback', () => {
