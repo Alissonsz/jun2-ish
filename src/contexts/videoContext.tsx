@@ -27,7 +27,7 @@ const VideoProvider = ({ children }) => {
   const [lastSeek, setLastSeek] = useState(0);
 
   const togglePlaying = () => {
-    sendVideoPlayingChange(id, !isPlaying);
+    sendVideoPlayingChange(id, playedFraction, !isPlaying);
   };
 
   const seekVideo = (seekTo: number) => {
@@ -41,13 +41,14 @@ const VideoProvider = ({ children }) => {
   useEffect(() => {
     socket.on('videoState', (data) => {
       console.log('Video info: ', data);
-      setLastSeek(data.progress / 100);
       setIsPlaying(data.playing);
+      setLastSeek(data.progress / 100);
     });
 
-    socket.on('videoPlayingChanged', (playing) => {
-      console.log('videoPlayingChanged', playing);
-      setIsPlaying(playing);
+    socket.on('videoPlayingChanged', (data) => {
+      console.log('videoPlayingChanged', data);
+      setLastSeek(data.progress / 100);
+      setIsPlaying(data.playing);
     });
 
     socket.on('videoSeeked', (seekTo) => {

@@ -28,6 +28,7 @@ const VideoPlayer = () => {
   const onRef = (el: ReactPlayer) => (playerRef.current = el);
 
   const onSliderChange = (e) => {
+    console.log('slide changed');
     seekVideo(e.target.value / 100);
   };
 
@@ -51,7 +52,9 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
+    console.log(lastSeek);
     playerRef?.current?.seekTo(lastSeek, 'fraction');
+    setPlayedFraction(lastSeek * 100);
   }, [lastSeek]);
 
   useEffect(() => {
