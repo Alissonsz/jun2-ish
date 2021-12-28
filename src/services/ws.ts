@@ -1,7 +1,9 @@
 import { io } from 'socket.io-client';
 import { IChatMessage } from '../stores/roomSlice';
 
-const socket = io('localhost:8080');
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'localhost:8080';
+
+const socket = io(SERVER_URL);
 
 export const sendNewMessage = (roomId: string, message: IChatMessage) => {
   const payload = {
