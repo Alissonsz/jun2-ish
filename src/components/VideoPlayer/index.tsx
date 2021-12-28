@@ -52,7 +52,6 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    console.log(lastSeek);
     playerRef?.current?.seekTo(lastSeek, 'fraction');
     setPlayedFraction(lastSeek * 100);
   }, [lastSeek]);

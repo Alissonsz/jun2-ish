@@ -32,6 +32,7 @@ describe('Video Player component', () => {
       isPlaying: false,
       playedFraction: 0,
       setLastSeek: jest.fn(),
+      setPlayedFraction: jest.fn(),
     } as any);
 
     render(<VideoPlayer />);
@@ -53,6 +54,7 @@ describe('Video Player component', () => {
     useVideoMocked.mockReturnValue({
       setLastSeek: jest.fn(),
       seekVideo: seekVideoMocked,
+      setPlayedFraction: jest.fn(),
     } as any);
 
     render(<VideoPlayer />);
@@ -68,6 +70,7 @@ describe('Video Player component', () => {
 
     useVideoMocked.mockReturnValue({
       setLastSeek: jest.fn(),
+      setPlayedFraction: jest.fn(),
     } as any);
 
     render(<VideoPlayer />);
@@ -75,13 +78,13 @@ describe('Video Player component', () => {
     const toggleVolumeVisibleButton = screen.getByTestId('toggleVolumeVisible');
     const volumeSlider = screen.getByTestId('volumeSlider');
 
-    fireEvent.click(toggleVolumeVisibleButton);
+    fireEvent.mouseEnter(toggleVolumeVisibleButton);
     expect(volumeSlider).not.toHaveClass('is-hidden');
 
     fireEvent.input(volumeSlider, { target: { value: 50 } });
     expect(volumeSlider).toHaveAttribute('value', '50');
 
-    fireEvent.click(toggleVolumeVisibleButton);
+    fireEvent.mouseLeave(toggleVolumeVisibleButton);
     expect(volumeSlider).toHaveClass('is-hidden');
   });
 
@@ -91,6 +94,7 @@ describe('Video Player component', () => {
 
     useVideoMocked.mockReturnValue({
       setLastSeek: jest.fn(),
+      setPlayedFraction: jest.fn(),
     } as any);
 
     render(<VideoPlayer />);
@@ -138,6 +142,7 @@ describe('Video Player component', () => {
     useVideoMocked.mockReturnValue({
       setLastSeek: jest.fn(),
       togglePlaying: togglePlayingMocked,
+      setPlayedFraction: jest.fn(),
     } as any);
 
     let onEndedMock;
