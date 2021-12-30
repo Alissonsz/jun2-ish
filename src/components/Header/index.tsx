@@ -43,8 +43,10 @@ const Header = () => {
           <a
             data-testid="setRoomUrl"
             onClick={(e) => {
-              changeVideoUrl(videoUrlInput);
-              setVideoUrlInput('');
+              if (!!videoUrlInput) {
+                changeVideoUrl(videoUrlInput);
+                setVideoUrlInput('');
+              }
             }}
           >
             <MdPlayArrow height={32} width={32} />

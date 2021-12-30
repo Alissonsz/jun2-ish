@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from './Header';
+import { GoMarkGithub } from 'react-icons/go';
 
 export const siteTitle = 'Jun2-ish';
 
@@ -25,7 +26,16 @@ export default function Layout({
 
       <footer className="footer">
         <div className="content has-text-centered">
-          <span>I&apos;m the footer</span>
+          <p>Built with ❤️ by Alisson Souza</p>
+          <a
+            href="https://github.com/Alissonsz/jun2-ish"
+            target="_blank"
+            rel="noreferrer"
+            className="has-tooltip-bottom"
+            data-tooltip="Project repository"
+          >
+            <GoMarkGithub size={36} />
+          </a>
         </div>
       </footer>
     </>
