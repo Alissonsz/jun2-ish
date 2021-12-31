@@ -6,8 +6,8 @@
 * [:fire: What is next](#fire-what-is-next)
 
  ## :bookmark: About
-  Jun2-ish is a website that can create rooms with text chat and some video, keeping the video synchronized to everyone on the room using websockets, the server repository can be found at [server](https://github.com/alissonsz/jun2-ish_backend).
- This app was built inspired by other [project](https://github.com/alissonsz/videoParty) made by me for the same purpose. The main goal was use the new skills and knowledges that i got to make it better than the last one, and use the oportunity to practice some technologies, like [NextJS](https://nextjs.org/), [Jest](https://jestjs.io/) and Websockets, in besides building a useful website.
+  Jun2-ish is a website for watching videos in watch parties with your friends. With this website you can create rooms with text chat and some video, keeping the video synchronized to everyone on the room using websockets, the server repository can be found at [server](https://github.com/alissonsz/jun2-ish_backend).
+ This app was built inspired by other [project](https://github.com/alissonsz/videoParty) made by me for the same purpose. The main goal is to use the new skills and knowledge that i got to make it better than the last [one](https://github.com/alissonsz/videoParty), and use the oportunity to practice some technologies, like [NextJS](https://nextjs.org/), [Jest](https://jestjs.io/) and Websockets, in besides building a useful website.
  
  ## :rocket: Technologies
  * [NextJS](https://nextjs.org/)
