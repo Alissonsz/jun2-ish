@@ -1,1 +1,1 @@
-module.exports = 'kkkk';
+module.exports = 'screenfull';
