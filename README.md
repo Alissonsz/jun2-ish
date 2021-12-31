@@ -1,4 +1,5 @@
-<h1 style="text-align: center;"> [Jun2-ish](https://jun2-ish.vercel.app/mainPage) </h1>
+# <h1 style="text-align: center;">  [Jun2-ish](https://jun2-ish.vercel.app/mainPage) </h1> 
+
 ## Sumary
 * [:bookmark: About](##bookmark-about)
 * [:rocket: Technologies](##rocket-technologies)
