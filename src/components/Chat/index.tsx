@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './Chat.module.scss';
 import { useRoom } from '../../contexts/roomContext';
+import { MdSend } from 'react-icons/md';
 
 const Chat = () => {
   const { messages, addMessage } = useRoom();
@@ -13,11 +14,15 @@ const Chat = () => {
     setNewMsg(e.target.value);
   };
 
-  const handleMsgSubmit = (e) => {
-    if (e.key === 'Enter' && newMsg.length) {
+  const submitMessage = () => {
+    if (!!newMsg) {
       addMessage(newMsg);
       setNewMsg('');
     }
+  };
+
+  const handleMsgSubmit = (e) => {
+    if (e.key === 'Enter' && newMsg.length) submitMessage();
   };
 
   useEffect(() => {
@@ -43,6 +48,7 @@ const Chat = () => {
           onChange={handleNewMsg}
           onKeyPress={handleMsgSubmit}
         />
+        <MdSend onClick={submitMessage} data-testid="submitMessageButton" />
       </div>
     </div>
   );
