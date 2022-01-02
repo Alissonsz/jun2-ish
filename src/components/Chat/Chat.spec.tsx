@@ -58,5 +58,11 @@ describe('Chat Component', () => {
     });
 
     expect(addMessageMocked).toHaveBeenCalledWith('Hello everyone');
+
+    const submitMessageButton = screen.getByTestId('submitMessageButton');
+    fireEvent.input(messageInput, { target: { value: 'Testing submit icon' } });
+    fireEvent.click(submitMessageButton);
+
+    expect(addMessageMocked).toHaveBeenCalledWith('Testing submit icon');
   });
 });
