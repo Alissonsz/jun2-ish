@@ -160,4 +160,19 @@ describe('Video Player component', () => {
 
     expect(togglePlayingMocked).toHaveBeenCalled();
   });
+
+  it('should show and hide controls based on mouse moving', () => {
+    render(<VideoPlayer />);
+
+    const videoCover = screen.getByTestId('videoPlayer');
+    const controlsContainer = screen.getByTestId('controlsContainer');
+
+    expect(controlsContainer).toHaveClass('is-hidden');
+
+    fireEvent.mouseMove(videoCover);
+
+    expect(controlsContainer).not.toHaveClass('is-hidden');
+
+    waitFor(() => expect(controlsContainer).toHaveClass('is-hidden'));
+  });
 });

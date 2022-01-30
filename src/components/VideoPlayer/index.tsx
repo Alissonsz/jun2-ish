@@ -24,6 +24,8 @@ const VideoPlayer = () => {
   const [volume, setVolume] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showVolumeInput, setShowVolumeInput] = useState(false);
+  const [hideControlsHandle, setHideControlsHandle] = useState(null);
+  const [hideControls, setHideControls] = useState(true);
 
   const onRef = (el: ReactPlayer) => (playerRef.current = el);
 
@@ -51,6 +53,17 @@ const VideoPlayer = () => {
     }
   };
 
+  const handleMouseMove = () => {
+    setHideControls(false);
+    setHideControlsHandle(
+      setTimeout(() => {
+        setHideControls(true);
+      }, 1500)
+    );
+
+    clearTimeout(hideControlsHandle);
+  };
+
   useEffect(() => {
     playerRef?.current?.seekTo(lastSeek, 'fraction');
     setPlayedFraction(lastSeek * 100);
@@ -66,6 +79,7 @@ const VideoPlayer = () => {
         styles['player-wrapper'],
         isFullscreen ? styles['is-fullscreen'] : ''
       )}
+      onMouseMove={handleMouseMove}
       ref={ref}
       data-testid="videoPlayer"
     >
@@ -88,7 +102,14 @@ const VideoPlayer = () => {
           playerRef.current.seekTo(lastSeek, 'fraction');
         }}
       />
-      <div className="player-controls">
+      <div
+        className={classNames(
+          'player-controls',
+          hideControls ? 'is-hidden' : ''
+        )}
+        onTouchMove={handleMouseMove}
+        data-testid="controlsContainer"
+      >
         <div className="play-pause button-container">
           {isPlaying ? (
             <MdPause

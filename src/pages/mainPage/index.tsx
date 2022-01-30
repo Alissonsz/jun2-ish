@@ -1,5 +1,3 @@
-import Layout from '../../components/layout';
-import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import styles from './MainPage.module.scss';
 import classNames from 'classnames';
@@ -20,19 +18,17 @@ const Index = () => {
   };
 
   const submitCreateRoom = () => {
-    if (!!roomVideo && !!roomName) {
-      setLoading(true);
-      api
-        .post('/room', {
-          name: roomName,
-          videoUrl: roomVideo,
-        })
-        .then((data) => {
-          console.log('created');
-          Router.push(`/room/${data.data.room.id}`);
-        })
-        .finally(() => setLoading(false));
-    }
+    setLoading(true);
+    api
+      .post('/room', {
+        name: roomName,
+        videoUrl: roomVideo,
+      })
+      .then((data) => {
+        console.log('created');
+        Router.push(`/room/${data.data.room.id}`);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -43,7 +39,7 @@ const Index = () => {
 
         <div className="control">
           <div className="field">
-            <label className="label">Room name</label>
+            <label className="label">Room name(optional)</label>
             <input
               type="text"
               className="input"
@@ -52,7 +48,7 @@ const Index = () => {
             />
           </div>
           <div className="field">
-            <label className="label">Video URL</label>
+            <label className="label">Video URL(optional)</label>
             <input
               type="text"
               className="input"
