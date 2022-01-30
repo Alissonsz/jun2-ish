@@ -39,7 +39,7 @@ const Index = () => {
 
         <div className="control">
           <div className="field">
-            <label className="label">Room name</label>
+            <label className="label">Room name(optional)</label>
             <input
               type="text"
               className="input"
@@ -48,7 +48,7 @@ const Index = () => {
             />
           </div>
           <div className="field">
-            <label className="label">Video URL</label>
+            <label className="label">Video URL(optional)</label>
             <input
               type="text"
               className="input"
