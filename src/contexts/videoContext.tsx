@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import api from '../services/api';
 
 import socket, {
   sendPlayingProgress,
@@ -39,6 +40,10 @@ const VideoProvider = ({ children }) => {
   }, [playedFraction]);
 
   useEffect(() => {
+    setInterval(() => {
+      api.get('/rooms');
+    }, 5 * 60 * 1000);
+
     socket.on('videoState', (data) => {
       console.log('Video info: ', data);
       setIsPlaying(data.playing);
