@@ -2,7 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
 import styles from './VideoPlayer.module.scss';
 import { useRoom } from '../../contexts/roomContext';
-import { MdPlayArrow, MdPause, MdFullscreen, MdVolumeUp } from 'react-icons/md';
+import {
+  MdPlayArrow,
+  MdPause,
+  MdFullscreen,
+  MdVolumeUp,
+  MdSkipNext,
+} from 'react-icons/md';
 import { useVideo } from '../../contexts/videoContext';
 import classNames from 'classnames';
 import Player from '../Player';
@@ -10,7 +16,7 @@ import Player from '../Player';
 const VideoPlayer = () => {
   const playerRef = useRef<ReactPlayer>(null);
   const ref = useRef(null);
-  const { videoUrl } = useRoom();
+  const { videoUrl, playlist, playNext } = useRoom();
   const {
     lastSeek,
     isPlaying,
@@ -94,7 +100,7 @@ const VideoPlayer = () => {
         playing={isPlaying}
         progressInterval={100}
         controls={false}
-        onEnded={() => togglePlaying()}
+        onEnded={() => (playlist.length > 0 ? playNext() : togglePlaying())}
         onProgress={(state) => {
           setPlayedFraction(state.played * 100);
         }}
@@ -127,6 +133,13 @@ const VideoPlayer = () => {
             />
           )}
         </div>
+        {playlist.length > 0 ? (
+          <div className="play-pause button-container">
+            <MdSkipNext width={40} height={40} onClick={playNext} />
+          </div>
+        ) : (
+          ''
+        )}
         <input
           className="slider is-fullwidth is-success is-circle"
           min="0"

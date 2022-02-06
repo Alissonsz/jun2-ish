@@ -51,4 +51,80 @@
       }
     }
   }
+
+  .playlist-container {
+    border-radius: 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $weight-semibold;
+    color: $black;
+    cursor: pointer;
+    background-color: $white;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: $black;
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      background-color: $grey-lighter;
+    }
+
+    @include mobile {
+      background-color: inherit;
+
+      svg {
+        margin-right: 0;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    :global {
+      .dropdown-trigger {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .dropdown-menu {
+        width: 100%;
+        left: unset;
+        right: 0;
+
+        .list-container {
+          display: flex;
+          flex-direction: column;
+
+          div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+
+            &:hover {
+              background-color: $grey-lighter;
+            }
+          }
+        }
+
+        .button-container {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 1rem;
+
+          button {
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
 }
