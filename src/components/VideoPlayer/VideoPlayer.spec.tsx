@@ -12,6 +12,11 @@ import screenfull from 'screenfull';
 import Player, { PlayerProps } from '../Player';
 
 jest.mock('../../contexts/videoContext');
+jest.mock('../../contexts/roomContext', () => ({
+  useRoom: () => ({
+    playlist: [],
+  }),
+}));
 jest.mock('screenfull', () => ({
   isEnabled: true,
   toggle: jest.fn(),

@@ -21,6 +21,7 @@ const initialTestState: RoomState = {
       content: 'There hello',
     },
   ],
+  playlist: [],
 };
 
 const callbacksMap = {};
