@@ -12,6 +12,7 @@ describe('Header component', () => {
 
     useRoomMocked.mockReturnValue({
       changeVideoUrl: changeVideoUrl,
+      playlist: [],
     } as any);
 
     render(<Header />);
@@ -25,6 +26,7 @@ describe('Header component', () => {
 
     useRoomMocked.mockReturnValue({
       changeVideoUrl: changeVideoUrl,
+      playlist: [],
     } as any);
 
     render(<Header />);

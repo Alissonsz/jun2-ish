@@ -9,6 +9,7 @@ import styles from './Room.module.scss';
 import Chat from '../../components/Chat';
 import api from '../../services/api';
 import { useVideo } from '../../contexts/videoContext';
+import { IPlaylistItem } from '../../stores/roomSlice';
 
 interface IRoom {
   id: string;
@@ -17,6 +18,7 @@ interface IRoom {
   messages: IChatMessage[];
   progress: number;
   playing: boolean;
+  playlist: IPlaylistItem[];
 }
 
 const Room = (roomInfos: IRoom) => {
@@ -26,6 +28,7 @@ const Room = (roomInfos: IRoom) => {
     setRoomUserNickname,
     setRoomVideoUrl,
     setRoomMessages,
+    updatePlaylist,
   } = useRoom();
 
   const [nameInput, setNameInput] = useState('');
@@ -37,6 +40,7 @@ const Room = (roomInfos: IRoom) => {
     setRoomVideoUrl(roomInfos.videoUrl);
     setRoomName(roomInfos.name);
     setRoomMessages(roomInfos.messages);
+    updatePlaylist(roomInfos.playlist);
   }, []);
 
   const handleNameChange = (e) => {

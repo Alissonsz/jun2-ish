@@ -1,0 +1,47 @@
+@import '~/src/styles/base.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.modal-container {
+  :global {
+    .modal-content {
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: $app-grey;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+
+      .content-header {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 1rem;
+        padding-top: 1rem;
+
+        svg {
+          cursor: pointer;
+          width: 24px;
+          height: 24px;
+          fill: $black;
+        }
+      }
+
+      .control {
+        width: 100%;
+        margin-bottom: 1rem;
+
+        label {
+          margin-bottom: 0;
+          margin-left: 0.75rem;
+        }
+      }
+
+      .button {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        width: 60%;
+      }
+    }
+  }
+}

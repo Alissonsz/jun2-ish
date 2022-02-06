@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { IChatMessage } from '../stores/roomSlice';
+import { IChatMessage, IPlaylistItem } from '../stores/roomSlice';
 
 const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:8080';
@@ -51,6 +51,23 @@ export const sendVideoSeek = (roomId: string, seekTo: number) => {
 export const sendPlayingProgress = (roomId: string, progress) => {
   const payload = { roomId, progress };
   socket.emit('playingProgress', payload);
+};
+
+export const sendVideoAddedToPlaylist = (
+  roomId: string,
+  video: IPlaylistItem
+) => {
+  const payload = { roomId, video };
+  socket.emit('addVideoToPlaylist', payload);
+};
+
+export const sendReorderPlaylist = (roomId: string, list: IPlaylistItem[]) => {
+  const payload = { roomId, list };
+  socket.emit('updatePlaylist', payload);
+};
+
+export const sendPlayNext = (roomId: string) => {
+  socket.emit('playNext', { roomId });
 };
 
 export default socket;

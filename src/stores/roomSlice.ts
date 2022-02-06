@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 export interface IChatMessage {
   author: string;
   content: string;
+}
+
+export interface IPlaylistItem {
+  id: number;
+  name: string;
+  url: string;
 }
 
 export interface RoomState {
@@ -11,6 +16,7 @@ export interface RoomState {
   videoUrl: string;
   userNickname: string;
   messages: IChatMessage[];
+  playlist: IPlaylistItem[];
 }
 
 const initialState: RoomState = {
@@ -19,6 +25,7 @@ const initialState: RoomState = {
   videoUrl: '',
   userNickname: undefined,
   messages: [],
+  playlist: [],
 };
 
 export const roomSlice = createSlice({
@@ -42,6 +49,15 @@ export const roomSlice = createSlice({
     },
     addMessage: (state, action: PayloadAction<IChatMessage>) => {
       state.messages.push(action.payload);
+    },
+    setPlaylist: (state, action: PayloadAction<IPlaylistItem[]>) => {
+      state.playlist = action.payload;
+    },
+    addToPlaylist: (state, action: PayloadAction<IPlaylistItem>) => {
+      state.playlist.push(action.payload);
+    },
+    removeFromPlaylist: (state) => {
+      state.playlist.shift();
     },
     clearState: () => {
       return initialState;
