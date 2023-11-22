@@ -22,11 +22,14 @@ const Index = () => {
     api
       .post('/room', {
         name: roomName,
-        videoUrl: roomVideo,
+        video_url: roomVideo,
       })
       .then((data) => {
         console.log('created');
-        Router.push(`/room/${data.data.room.id}`);
+        Router.push(`/room/${data.data.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => setLoading(false));
   };

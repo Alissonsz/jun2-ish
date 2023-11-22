@@ -8,7 +8,7 @@ import socket, {
   sendReorderPlaylist,
   sendVideoAddedToPlaylist,
   sendVideoChange,
-} from '../services/ws';
+} from '../services/customWs';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -97,6 +97,10 @@ const RoomProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log('socket', socket);
+    if (!socket) return;
+    console.log('setting up listeners');
+
     socket.on('connect', () => {
       console.log('connected');
     });
@@ -106,24 +110,24 @@ const RoomProvider = ({ children }) => {
       dispatch(RoomActions.addMessage(data));
     });
 
-    socket.on('videoChanged', (data: string) => {
+    socket.on('videoChanged', (data: { videoUrl: string }) => {
       console.log('video changed', data);
-      dispatch(RoomActions.setVideoUrl(data));
+      dispatch(RoomActions.setVideoUrl(data.videoUrl));
     });
 
     socket.on('addedToPlaylist', (data: IPlaylistItem) => {
       dispatch(RoomActions.addToPlaylist(data));
     });
 
-    socket.on('playlistUpdated', (data: IPlaylistItem[]) => {
-      dispatch(RoomActions.setPlaylist(data));
-    });
+    //   socket.on('playlistUpdated', (data: IPlaylistItem[]) => {
+    //     dispatch(RoomActions.setPlaylist(data));
+    //   });
 
     socket.on('playNext', (data: IPlaylistItem) => {
       dispatch(RoomActions.setVideoUrl(data.url));
       dispatch(RoomActions.removeFromPlaylist());
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <RoomContext.Provider

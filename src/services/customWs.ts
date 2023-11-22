@@ -1,22 +1,44 @@
-import { io } from 'socket.io-client';
+import { useEffect, useState } from 'react';
 import { IChatMessage, IPlaylistItem } from '../stores/roomSlice';
 
-const SERVER_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:8080';
+const url =
+  process.env.NODE_ENV === 'production'
+    ? 'wss://jun2-ish.fun/ws'
+    : 'ws://localhost:8080/ws';
 
-const socket = io(SERVER_URL, {
-  path: '/ws',
-  transports: ['websocket'],
-  protocols: ['websocket'],
-});
+const socket = {
+  conn: new WebSocket(url),
+  emit: (type: string, data: any) => {
+    if (socket.conn.readyState !== WebSocket.OPEN) return;
+
+    socket.conn.send(JSON.stringify({ type, data }));
+  },
+  on: (type: string, callback: (data: any) => void) => {
+    socket.conn.addEventListener('message', (event) => {
+      const { type: eventType, data } = JSON.parse(event.data);
+      console.log({ type, data });
+
+      if (type === eventType) {
+        callback(data);
+      }
+    });
+  },
+};
+
+socket.conn.onopen = () => {
+  console.log('connected!');
+};
+
+socket.conn.onmessage = (message) => {
+  console.log(message);
+};
+
+socket.conn.onerror = (error) => {
+  console.log(error);
+};
 
 export const sendNewMessage = (roomId: string, message: IChatMessage) => {
-  const payload = {
-    roomId,
-    message,
-  };
-
-  socket.emit('newMessage', payload);
+  socket.emit('newMessage', message);
 };
 
 export const sendEntryRoom = (roomId: string, nickname: string) => {
@@ -42,7 +64,7 @@ export const sendVideoPlayingChange = (
   progress: number,
   playing: boolean
 ) => {
-  const payload = { roomId, progress, playing };
+  const payload = { progress, playing };
 
   socket.emit('videoPlayingChanged', payload);
 };
@@ -61,7 +83,7 @@ export const sendVideoAddedToPlaylist = (
   roomId: string,
   video: IPlaylistItem
 ) => {
-  const payload = { roomId, video };
+  const payload = { ...video };
   socket.emit('addVideoToPlaylist', payload);
 };
 

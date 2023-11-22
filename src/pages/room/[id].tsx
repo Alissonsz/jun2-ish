@@ -35,6 +35,8 @@ const Room = (roomInfos: IRoom) => {
   const [modalActive, setModalActive] = useState(true);
 
   useEffect(() => {
+    //if (window.WebSocket) initWebSocket();
+
     // ROOM INITIAL STATE
     setRoomId(roomInfos.id);
     setRoomVideoUrl(roomInfos.videoUrl);
@@ -109,11 +111,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const response = await api.get(`/room/${id}`);
-    const room = response.data.room;
-    console.log(room);
+    const room = response.data;
+
     return {
       props: {
-        ...room,
+        id: room.id,
+        name: room.name,
+        videoUrl: room.video_url,
+        messages: room.messages || [],
+        progress: room.progress,
+        playing: room.playing,
+        playlist: room.playlist_items || [],
       },
     };
   } catch {

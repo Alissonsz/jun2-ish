@@ -98,7 +98,7 @@ const VideoPlayer = () => {
         height={'100%'}
         volume={volume}
         playing={isPlaying}
-        progressInterval={100}
+        progressInterval={1000}
         controls={false}
         onEnded={() => (playlist.length > 0 ? playNext() : togglePlaying())}
         onProgress={(state) => {

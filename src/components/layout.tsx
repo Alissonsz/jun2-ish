@@ -14,9 +14,7 @@ export default function Layout({
   return (
     <>
       <Head>
-        <title>
-          {siteTitle} {home ? 'Homepage' : ''}
-        </title>
+        <title>{`${siteTitle} ${home ? 'Homepage' : ''}`}</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
       <header>

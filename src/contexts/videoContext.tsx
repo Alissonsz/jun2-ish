@@ -5,7 +5,7 @@ import socket, {
   sendPlayingProgress,
   sendVideoPlayingChange,
   sendVideoSeek,
-} from '../services/ws';
+} from '../services/customWs';
 import { useRoom } from './roomContext';
 
 interface IVideoContext {
@@ -56,9 +56,9 @@ const VideoProvider = ({ children }) => {
       setIsPlaying(data.playing);
     });
 
-    socket.on('videoSeeked', (seekTo) => {
-      console.log('videoSeeked', seekTo);
-      setLastSeek(seekTo);
+    socket.on('videoSeeked', (data: { seekTo: number }) => {
+      console.log('videoSeeked', data);
+      setLastSeek(data.seekTo);
     });
   }, []);
 
